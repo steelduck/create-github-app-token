@@ -15054,10 +15054,9 @@ async function main(appId2, privateKey2, repository2, core2, createAppAuth2, req
     type: "app"
   });
   const { data: installation } = await request2(
-    "GET /repos/{owner}/{repo}/installation",
+    "GET /orgs/{owner}/installation",
     {
       owner,
-      repo,
       headers: {
         authorization: `bearer ${appAuthentication.token}`
       }
@@ -15065,8 +15064,7 @@ async function main(appId2, privateKey2, repository2, core2, createAppAuth2, req
   );
   const authentication = await auth({
     type: "installation",
-    installationId: installation.id,
-    repositoryNames: [repo]
+    installationId: installation.id
   });
   core2.setSecret(authentication.token);
   core2.setOutput("token", authentication.token);
